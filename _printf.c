@@ -13,43 +13,50 @@
 
 int _printf(const char *format, ...)
 {
-	int count = 0;
 	va_list args;
-	va_start(args,format);
-	
-	for (const char *ptr = format; *ptr != '\0'; ptr++)
+	int count = 0;
+	char c;
+	va_start(args, format);
+	while ((c = *format++))
 	{
-		if (*ptr == '%')
+		if (c == '%')
 		{
-			ptr++;
-			switch (*ptr){
-				case 'c': 
+			c = *format++;
+			switch (c)
+			{
+				case 'c':
 					{
-						char c = (char) va_arg(args, int);
-						putchar(c);
+						char ch = (char)va_arg(args, int);
+						_putchar(ch);
 						count++;
 						break;
 					}
-				case 's': {
-						  const char *str = va_arg(args, const char*);
-						  for (; *str != '\0'; str++)
+				case 's':
+					{
+						  const char *str = va_arg(args, const char *);
+						  while (*str)
 						  {
-							  putchar(*str);
+							  _putchar(*str++);
 							  count++;
 						  }
 						  break;
-					  }
-				case '%': {
-						  putchar('%');
-						  count++;
-						  break;
-					  }
+					}
+				case '%':
+					{
+						_putchar('%');
+						count++;
+						break;
+					}
 				default:
-					  break;
+					_putchar('%');
+					_putchar(c);
+					count += 2;
+					break;
 			}
 		}
-		else {
-			putchar(*ptr);
+		else
+		{
+			_putchar(c);
 			count++;
 		}
 	}
