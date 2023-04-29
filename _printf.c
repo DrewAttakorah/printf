@@ -18,17 +18,18 @@ int _printf(const char *format, ...)
 	const char *p;
 	va_list arguments;
 	flags_t flags = {0, 0, 0};
+	arguments = argt;
 
 	/** Declare integer my_count  */
 	register int my_count = 0;
 
-	/** The va_start macro is called to initialize arguments 
+	/** The va_start macro is called to initialize arguments
     * with the variable arguments passed to the function */
-	va_start(arguments, format);
-	
-	/** The function checks for invalid format strings 
+	va_start(argt, format);
+
+	/** The function checks for invalid format strings
 	* and returns -1 if any are found */
-	
+
 	if (!format || (format[0] == '%' && !format[1]))
 		return (-1);
 	if (format[0] == '%' && format[1] == ' ' && !format[2])
@@ -49,13 +50,13 @@ int _printf(const char *format, ...)
 				p++;
 			myp_func = get_print(*p);
 			my_count += (myp_func)
-				? myp_func(arguments, &flags)
+				? myp_func(argt, &flags)
 				: _printf("%%%c", *p);
 		} else
 
 			my_count += _putchar(*p);
 	}
 	_putchar(-1);
-	va_end(arguments);
+	va_end(argt);
 	return (my_count);
 }
