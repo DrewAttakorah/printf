@@ -13,29 +13,29 @@
 
 int _printf(const char *format, ...)
 {
-	/**  Declaring or initializing variables  */
+	/** Declaring or initializing variables */
 	int (*myp_func)(va_list, flags_t *);
 	const char *p;
 	va_list arguments;
 	flags_t flags = {0, 0, 0};
 	arguments = argt;
 
-	/** Declare integer my_count  */
+	/** Declare integer my_count */
 	register int my_count = 0;
 
-	/** The va_start macro is called to initialize arguments
-    * with the variable arguments passed to the function */
+	/** The va_start macro is called to initialize arguments */
+	/* with the variable arguments passed to the function */
 	va_start(argt, format);
 
-	/** The function checks for invalid format strings
-	* and returns -1 if any are found */
+	/** The function checks for invalid format strings */
+	/* and returns -1 if any are found */
 
 	if (!format || (format[0] == '%' && !format[1]))
 		return (-1);
 	if (format[0] == '%' && format[1] == ' ' && !format[2])
 		return (-1);
 	
-	/** The function iterates through the format string*/
+	/** The function iterates through the format string */
 	for (p = format; *p; p++)
 	{
 		if (*p == '%')
@@ -58,8 +58,8 @@ int _printf(const char *format, ...)
 			my_count += _putchar(*p);
 	}
 	
-	/**  the function cleans up the va_list and 
-	* returns the total number of characters printed*/
+	/** The function cleans up the va_list and */
+	/* returns the total number of characters printed */
 	_putchar(-1);
 	va_end(argt);
 	return (my_count);
