@@ -18,7 +18,6 @@ int _printf(const char *format, ...)
 	int (*myp_func)(va_list, flags_t *);
 	const char *p;
 	va_list arguments;
-	arguments = argt;
 	flags_t flags = {0, 0, 0};
 
 	/** Declare integer my_count */
@@ -26,7 +25,7 @@ int _printf(const char *format, ...)
 
 	/** The va_start macro is called to initialize arguments */
 	/* with the variable arguments passed to the function */
-	va_start(argt, format);
+	va_start(arguments, format);
 
 	/** The function checks for invalid format strings */
 	/* and returns -1 if any are found */
@@ -52,7 +51,7 @@ int _printf(const char *format, ...)
 				p++;
 			myp_func = get_print(*p);
 			my_count += (myp_func)
-				? myp_func(argt, &flags)
+				? myp_func(arguments, &flags)
 				: _printf("%%%c", *p);
 		} else
 
@@ -62,6 +61,6 @@ int _printf(const char *format, ...)
 	/** The function cleans up the va_list and */
 	/* returns the total number of characters printed */
 	_putchar(-1);
-	va_end(argt);
+	va_end(arguments);
 	return (my_count);
 }
