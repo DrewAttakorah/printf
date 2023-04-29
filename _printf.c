@@ -34,7 +34,8 @@ int _printf(const char *format, ...)
 		return (-1);
 	if (format[0] == '%' && format[1] == ' ' && !format[2])
 		return (-1);
-
+	
+	/** The function iterates through the format string*/
 	for (p = format; *p; p++)
 	{
 		if (*p == '%')
@@ -56,6 +57,9 @@ int _printf(const char *format, ...)
 
 			my_count += _putchar(*p);
 	}
+	
+	/**  the function cleans up the va_list and 
+	* returns the total number of characters printed*/
 	_putchar(-1);
 	va_end(argt);
 	return (my_count);
