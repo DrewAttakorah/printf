@@ -1,6 +1,6 @@
-#include "main.h"
 #include <limits.h>
 #include <stdio.h>
+#include "main.h"
 
 /**
  * _printf - This function is to print the formatted
@@ -15,7 +15,7 @@
 int _printf(const char *format, ...)
 {
 	/** Declaring or initializing variables */
-	int (*myp_func)(va_list, flags_t *);
+	int (*my_func)(va_list, flags_t *);
 	const char *p;
 	va_list arguments;
 	flags_t flags = {0, 0, 0};
@@ -44,14 +44,14 @@ int _printf(const char *format, ...)
 			if (*p == '%')
 			{
 
-				my_count +=_putchar('%');
+				my_count += _putchar('%');
 				continue;
 			}
 			while (get_flag(*p, &flags))
 				p++;
-			myp_func = get_print(*p);
-			my_count += (myp_func)
-				? myp_func(arguments, &flags)
+			my_func = get_print(*p);
+			my_count += (my_func)
+				? my_func(arguments, &flags)
 				: _printf("%%%c", *p);
 		} else
 

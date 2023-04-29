@@ -23,7 +23,7 @@ char *convert(unsigned long int numb, int base, int lowercase)
 	*ptrs = '\0';
 	/** This perform the conversion */
 	do {
-		*--ptrs = reps[num % base];
+		*--ptrs = reps[numb % base];
 		numb /= base;
 	} while (numb != 0);
 
