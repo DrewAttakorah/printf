@@ -44,7 +44,7 @@ int _printf(const char *format, ...)
 			if (*p == '%')
 			{
 
-				my_count = my_count + _putchar('%');
+				my_count = my_count + putchar('%');
 				continue;
 			}
 			while (get_flag(*p, &flags))
