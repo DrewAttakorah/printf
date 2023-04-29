@@ -1,68 +1,57 @@
 #include "main.h"
-
-void print_buffer(char buffer[], int *buff_ind);
+#include <limits.h>
+#include <stdio.h>
 
 /**
- * _printf - Outputs a formatted string.
- * @format: Character string to print - may contain directives.
- *
- * Return: The number of characters printed.
+ * _printf - The purpose of the function is to print the formatted string to the standard
+ * @format: format string containing the characters and the specifiers
+ * Description: this function will call the get_print() function that will
+ * determine which printing function to call depending on the conversion
+ * specifiers contained into a format
+ * Return: length of the formatted output string
  */
 
 int _printf(const char *format, ...)
 {
-	int a, display = 0, display_chars = 0;
-	int flags, width, precision, size, buff_ind = 0;
-	va_list args;
-	char buffer[BUFF_SIZE];
+	/**  Declaring or initializing variables  */
+	int (*p_func)(va_list, flags_t *);
+	const char *p;
+	va_list arguments;
+	flags_t flags = {0, 0, 0};
 
-	if (format == NULL)
+    /** Declare integer my_count  */
+	register int my_count = 0;
+
+
+	va_start(arguments, format);
+
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
 		return (-1);
 
-	int display_chars = 0, buff_ind = 0;
-	char buffer[BUFF_SIZE];
-	va_list args;
-	va_start(args, format);
+	for (p = format; *p; p++)
+	{
+		if (*p == '%')
+		{
+			p++;
+			if (*p == '%')
+			{
 
-	int a = 0;
-	while (format[a] != '\0') {
-            if (format[a] != '%') {
-                buffer[buff_ind++] = format[a];
-                if (buff_ind == BUFF_SIZE) {
-                        print_buffer(buffer, &buff_ind);
-                }
-                display_chars++;
-                }
-                else {
-                        print_buffer(buffer, &buff_ind);
-                a++;
-                int flags = g_flags(format, &a);
-                int width = get_width(format, &a, args);
-                int precision = _precision(format, &a, args);
-                int size = _size(format, &a);
-                int display = handle_print(format, &a, args, buffer, flags, width, precision, size);
-                if (display == -1) {
-                        return -1;
-                }
-                display_chars += display;
-                }
-                a++;
-                }
-                print_buffer(buffer, &buff_ind);
-                va_end(args);
-                return display_chars;
-}
+				my_count = my_count + _putchar('%');
+				continue;
+			}
+			while (get_flag(*p, &flags))
+				p++;
+			p_func = get_print(*p);
+			my_count += (pfunc)
+				? p_func(arguments, &flags)
+				: _printf("%%%c", *p);
+		} else
 
-/**
- * print_buffer - display the values of the buffer if it exist.
- * @buff_ind: Index at which to add next char, represents the length.
- * @buffer: A pointer to a character array
- */
-
-void print_buffer(char buffer[], int *buff_ind)
-{
-	if (*buff_ind > 0)
-		write(1, &buffer[0], *buff_ind);
-
-	*buff_ind = 0;
+			my_count += _putchar(*p);
+	}
+	_putchar(-1);
+	va_end(arguments);
+	return (my_count);
 }
