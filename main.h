@@ -49,10 +49,10 @@ char *convert(unsigned long int numb, int base, int lowercase);
 int _printf(const char *format, ...);
 
 /* get_print */
-int (*get_print(char z))(va_list, flags_t *);
+int (*get_print(char s))(va_list, flags_t *);
 
 /* get_flag */
-int get_flag(char z, flags_t *f);
+int get_flag(char s, flags_t *f);
 
 /* print_alpha */
 int print_string(va_list l, flags_t *f);

@@ -3,7 +3,7 @@
 /**
  * get_print - will select the appropriate printing function
  * depending on the conversion specifier passed to _printf
- * @z: character that holds the conversion specifier
+ * @s: character that holds the conversion specifier
  * Description: the function will loop through the structs array
  * funct_arr[] to find a match between the specifier passed to _printf
  * and the first element of the struct, and then the approriate
@@ -11,7 +11,7 @@
  * Return: a pointer to the matching printing function
  */
 
-int (*get_print(char z))(va_list, flags_t *)
+int (*get_print(char s))(va_list, flags_t *)
 {
 	/** struct array that maps specifiers to function */
 	phandler funct_arr[] = {
@@ -40,7 +40,7 @@ int (*get_print(char z))(va_list, flags_t *)
 
 	while (i < flags)
 	{
-		if (funct_arr[i].c == z)
+		if (funct_arr[i].c == s)
 		{
 			return (funct_arr[i].f);
 		}
