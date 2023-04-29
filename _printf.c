@@ -3,11 +3,12 @@
 #include <stdio.h>
 
 /**
- * _printf - The purpose of the function is to print the formatted string to the standard
+ * _printf - This function is to print the formatted
+ * string to the standard
  * @format: format string containing the characters and the specifiers
  * Description: this function will call the get_print() function that will
- * determine which printing function to call depending on the conversion
- * specifiers contained into a format
+ * determine which printing function to call depending
+ * on the conversion specifiers contained into a format
  * Return: length of the formatted output string
  */
 
@@ -17,8 +18,8 @@ int _printf(const char *format, ...)
 	int (*myp_func)(va_list, flags_t *);
 	const char *p;
 	va_list arguments;
-	flags_t flags = {0, 0, 0};
 	arguments = argt;
+	flags_t flags = {0, 0, 0};
 
 	/** Declare integer my_count */
 	register int my_count = 0;
@@ -34,7 +35,7 @@ int _printf(const char *format, ...)
 		return (-1);
 	if (format[0] == '%' && format[1] == ' ' && !format[2])
 		return (-1);
-	
+
 	/** The function iterates through the format string */
 	for (p = format; *p; p++)
 	{
@@ -57,7 +58,7 @@ int _printf(const char *format, ...)
 
 			my_count += _putchar(*p);
 	}
-	
+
 	/** The function cleans up the va_list and */
 	/* returns the total number of characters printed */
 	_putchar(-1);
