@@ -3,7 +3,7 @@
 /**
  * get_print - will select the appropriate printing function
  * depending on the conversion specifier passed to _printf
- * @s: character that holds the conversion specifier
+ * @z: character that holds the conversion specifier
  * Description: the function will loop through the structs array
  * funct_arr[] to find a match between the specifier passed to _printf
  * and the first element of the struct, and then the approriate
@@ -37,13 +37,14 @@ int (*get_print(char z))(va_list, flags_t *)
 
 	/** Loop through the array to find a match and return appro funct. */
 	int i = 0;
-	while (i <flags)
-       	{
-		if (funct_arr[i].c == z) 
+
+	while (i < flags)
+	{
+		if (funct_arr[i].c == z)
 		{
-			return funct_arr[i].f;
+			return (funct_arr[i].f);
 		}
-	i++;
+		i++;
 	}
-	return NULL;
+	return (NULL);
 }
