@@ -14,7 +14,7 @@
 int (*get_print(char s))(va_list, flags_t *)
 {
 	/** struct array that maps specifiers to function */
-	phandler funct_arr[] = {
+	ph funct_arr[] = {
 		{'i', print_int},
 		{'s', print_string},
 		{'c', print_char},
