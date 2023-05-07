@@ -35,16 +35,13 @@ int (*get_print(char s))(va_list, flags_t *)
 
 	register int i;
 
-	/** Loop through the array to find a match and return appro funct. */
-	int i = 0;
-
-	while (i < flags)
-	{
-		if (funct_arr[i].c == s)
-		{
-			return (funct_arr[i].f);
-		}
-		i++;
-	}
-	return (NULL);
+	/** While loop through the array to find a match and return appro funct. */
+	i = 0;
+    while (i < flags) {
+        if (func_arr[i].c == s) {
+            return (func_arr[i].f);
+        }
+        i++;
+    }
+    return (NULL);
 }

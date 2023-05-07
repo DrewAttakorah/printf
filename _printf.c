@@ -1,66 +1,78 @@
-#include <limits.h>
-#include <stdio.h>
-#include "main.h"
+#ifndef MAIN_H
+#define MAIN_H
+
+#include <stdlib.h>
+#include <stdarg.h>
 
 /**
- * _printf - This function is to print the formatted
- * string to the standard
- * @format: format string containing the characters and the specifiers
- * Description: this function will call the get_print() function that will
- * determine which printing function to call depending
- * on the conversion specifiers contained into a format
- * Return: length of the formatted output string
+ * struct flags - struct contains flags to "turn on"
+ * when a flag specifier is passed to _printf()
+ * @plus: flag for the '+' character
+ * @space: flag for the ' ' character
+ * @hash: flag for the '#' character
+ * drew-attakorah
  */
-
-int _printf(const char *format, ...)
+typedef struct flags
 {
-	/** Declaring or initializing variables */
-	int (*my_func)(va_list, flags_t *);
-	const char *p;
-	va_list arguments;
-	flags_t flags = {0, 0, 0};
+	int plus;
+	int space;
+	int hash;
+} flags_t;
 
-	/** Declare integer my_count */
-	register int my_count = 0;
+/**
+ * struct printHandler - struct to choose the correct function depending
+ * on the format specifier passed to _printf()
+ * @c: format specifier
+ * @f: pointer to the right printing function
+ * drew-attakorah
+ */
+typedef struct printHandler
+{
+	char c;
+	int (*f)(va_list ap, flags_t *f);
+} ph;
 
-	/** The va_start macro is called to initialize arguments */
-	/* with the variable arguments passed to the function */
-	va_start(arguments, format);
+/* print_nums */
+int print_int(va_list l, flags_t *f);
+void print_number(int n);
+int print_unsigned(va_list l, flags_t *f);
+int count_digit(int i);
 
-	/** The function checks for invalid format strings */
-	/* and returns -1 if any are found */
+/* print_bases */
+int print_hex(va_list l, flags_t *f);
+int print_hex_big(va_list l, flags_t *f);
+int print_binary(va_list l, flags_t *f);
+int print_octal(va_list l, flags_t *f);
 
-	if (!format || (format[0] == '%' && !format[1]))
-		return (-1);
-	if (format[0] == '%' && format[1] == ' ' && !format[2])
-		return (-1);
+/* converter */
+char *convert(unsigned long int num, int base, int lowercase);
 
-	/** The function iterates through the format string */
-	for (p = format; *p; p++)
-	{
-		if (*p == '%')
-		{
-			p++;
-			if (*p == '%')
-			{
+/* _printf */
+int _printf(const char *format, ...);
 
-				my_count += _putchar('%');
-				continue;
-			}
-			while (get_flag(*p, &flags))
-				p++;
-			my_func = get_print(*p);
-			my_count += (my_func)
-				? my_func(arguments, &flags)
-				: _printf("%%%c", *p);
-		} else
+/* get_print */
+int (*get_print(char s))(va_list, flags_t *);
 
-			my_count += _putchar(*p);
-	}
+/* get_flag */
+int get_flag(char s, flags_t *f);
 
-	/** The function cleans up the va_list and */
-	/* returns the total number of characters printed */
-	_putchar(-1);
-	va_end(arguments);
-	return (my_count);
-}
+/* print_alpha */
+int print_string(va_list l, flags_t *f);
+int print_char(va_list l, flags_t *f);
+
+/* write_funcs */
+int _putchar(char c);
+int _puts(char *str);
+
+/* print_custom */
+int print_rot13(va_list l, flags_t *f);
+int print_rev(va_list l, flags_t *f);
+int print_bigS(va_list l, flags_t *f);
+
+/* print_address */
+int print_address(va_list l, flags_t *f);
+
+/* print_percent */
+int print_percent(va_list l, flags_t *f);
+
+#endif

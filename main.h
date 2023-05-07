@@ -6,10 +6,11 @@
 
 /**
  * struct flags - struct containing flags to "turn on"
- * when flag specifier is passed to _printf()
+ * when a flag specifier is passed to _printf()
  * @plus: flag for the '+' character
  * @space: flag for the ' ' character
  * @hash: flag for the '#' character
+ * drew-attakorah
  */
 typedef struct flags
 {
@@ -21,8 +22,8 @@ typedef struct flags
 /**
  * struct printHandler - struct to choose the right function depending
  * on the format specifier passed to _printf()
- * @c: a format specifier
- * @f: a pointer to the correct printing function
+ * @c: format specifier
+ * @f: pointer to the correct printing function
  */
 typedef struct printHandler
 {
@@ -43,7 +44,7 @@ int print_binary(va_list l, flags_t *f);
 int print_octal(va_list l, flags_t *f);
 
 /* converter */
-char *convert(unsigned long int numb, int base, int lowercase);
+char *convert(unsigned long int num, int base, int lowercase);
 
 /* _printf */
 int _printf(const char *format, ...);

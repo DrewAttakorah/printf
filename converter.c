@@ -2,30 +2,31 @@
 
 /**
  * convert - converts number and base into string
- * @numb: inputs number
- * @base: inputs base
- * @lowercase: flag if hexadecimal values need to be lowercases
- * Return: the result string
+ * @num: input a number
+ * @base: input a base
+ * @lowercase: flag if hexadecimal values need to be lowercase
+ * Return: result string
+ * drew-attakorah
  */
 
-char *convert(unsigned long int numb, int base, int lowercase)
+char *convert(unsigned long int num, int base, int lowercase)
 {
-	/** A static variables for base chtrs and resulting string buffer */
-	static char *reps;
+	/** Static variables for base xters and results in string buffer */
+	static char *rep;
 	static char buff[50];
-	char *ptrs;
+	char *ptr;
 
-	/** This set hexadecimal characters based on lowercase flag */
-	reps = (lowercase)
+	/** Set hexadecimal xters depending on lowercase flag */
+	rep = (lowercase)
 		? "0123456789abcdef"
 		: "0123456789ABCDEF";
-	ptrs = &buff[49];
-	*ptrs = '\0';
-	/** This perform the conversion */
+	ptr = &buff[49];
+	*ptr = '\0';
+	/** does the conversion */
 	do {
-		*--ptrs = reps[numb % base];
-		numb /= base;
-	} while (numb != 0);
+		*--ptr = rep[num % base];
+		num /= base;
+	} while (num != 0);
 
-	return (ptrs);
+	return (ptr);
 }
